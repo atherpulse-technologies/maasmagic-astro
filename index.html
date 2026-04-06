@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Maa's Magic is a homemade achar brand from Vadakara, Kerala." />
+  <title>Maa's Magic | Homemade Pickles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#fffaf0",
+              100: "#fef3d7",
+              500: "#c89a2c",
+              600: "#a77f20",
+              900: "#4a3613"
+            }
+          },
+          fontFamily: {
+            sans: ["Manrope", "Segoe UI", "sans-serif"],
+            display: ["Playfair Display", "Georgia", "serif"]
+          },
+          boxShadow: {
+            soft: "0 16px 36px rgba(15, 23, 42, 0.08)"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-stone-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-40 border-b border-stone-200 bg-stone-50">
+    <div class="mx-auto flex h-28 w-[min(1160px,92%)] items-center justify-between gap-3 md:h-32">
+      <a href="#home" class="flex items-center gap-2 md:gap-3">
+        <span class="grid h-24 w-24 place-items-center overflow-hidden md:h-28 md:w-28">
+          <img src="maasmagic_logo.png" alt="Maa's Magic logo" class="h-full w-full object-contain" loading="eager" />
+        </span>
+        <span class="leading-tight">
+          <span class="block font-display text-3xl font-bold text-slate-900 md:text-4xl">Maa's Magic</span>
+          <span class="block pt-1 text-xs font-extrabold uppercase tracking-[0.3em] text-brand-600 md:text-sm">Pickle Solution</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-6 text-base font-semibold text-slate-600 md:flex" aria-label="Primary navigation">
+        <a href="#menu" class="hover:text-slate-900">Products</a>
+        <a href="#about" class="hover:text-slate-900">About</a>
+        <a href="#order" class="hover:text-slate-900">How to Order</a>
+      </nav>
+
+      <a href="https://wa.me/910000000000" class="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-600 md:text-base">
+        <i class="fa-brands fa-whatsapp"></i>
+        Order Now
+      </a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="border-b border-stone-200 bg-gradient-to-b from-white to-brand-50/40">
+      <div class="mx-auto grid w-[min(1160px,92%)] gap-10 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
+        <div>
+          <span class="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-amber-800">
+            <i class="fa-solid fa-star"></i>
+            Homemade Pickles from Vadakara
+          </span>
+
+          <h1 class="max-w-[18ch] font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+            Trusted Kerala achar for your everyday meals.
+          </h1>
+
+          <p class="mt-5 max-w-[58ch] text-lg text-slate-600">
+            Freshly prepared in small batches with quality ingredients and family recipes.
+            Maa's Magic brings authentic homemade taste to your table.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="https://wa.me/910000000000" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-slate-800">
+              <i class="fa-brands fa-whatsapp"></i>
+              Chat on WhatsApp
+            </a>
+            <a href="#menu" class="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-6 py-3 text-sm font-bold text-slate-700 transition hover:bg-stone-50">
+              <i class="fa-solid fa-box-open"></i>
+              View Products
+            </a>
+          </div>
+
+          <p class="mt-4 text-sm font-semibold text-slate-500">Fast response. Clear pricing. Easy WhatsApp ordering.</p>
+        </div>
+
+        <div class="relative rounded-2xl border border-amber-200 bg-white p-4 shadow-soft sm:p-6">
+          <span class="absolute left-5 top-5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">
+            Hero Product Mockup
+          </span>
+          <img
+            src="productmockup.jpg"
+            alt="Large product mockup placeholder"
+            class="h-[360px] w-full rounded-xl border border-stone-200 bg-white object-contain p-2 sm:h-[420px]"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-stone-200 bg-brand-50/45">
+      <div class="mx-auto grid w-[min(1160px,92%)] gap-4 py-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="px-2 py-1">
+          <p class="flex items-center gap-2 text-sm font-semibold text-slate-700"><i class="fa-solid fa-house text-brand-600"></i> Homemade in small batches</p>
+        </div>
+        <div class="px-2 py-1">
+          <p class="flex items-center gap-2 text-sm font-semibold text-slate-700"><i class="fa-solid fa-bowl-food text-brand-600"></i> Veg + Non-veg varieties</p>
+        </div>
+        <div class="px-2 py-1">
+          <p class="flex items-center gap-2 text-sm font-semibold text-slate-700"><i class="fa-solid fa-tags text-brand-600"></i> Uniform pricing ₹100 | 100g</p>
+        </div>
+        <div class="px-2 py-1">
+          <p class="flex items-center gap-2 text-sm font-semibold text-slate-700"><i class="fa-brands fa-whatsapp text-brand-600"></i> Direct WhatsApp support</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="py-20">
+      <div class="mx-auto w-[min(1160px,92%)]">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="font-display text-4xl font-bold text-slate-900">Our Product Range</h2>
+          <p class="mt-3 text-lg text-slate-600">
+            Choose from classic vegetarian and non-vegetarian Kerala pickle varieties.
+            Every item is handcrafted and packed fresh.
+          </p>
+        </div>
+
+        <div class="mt-12">
+          <h3 class="mb-5 font-display text-2xl font-bold text-slate-900">Vegetarian Delights</h3>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Classic Mango pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Classic Mango</h4><p class="text-sm font-semibold text-slate-500">മാങ്ങാ</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Tangy mango pieces blended with authentic Kerala spice mix.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Spicy Garlic pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Spicy Garlic</h4><p class="text-sm font-semibold text-slate-500">വെളുത്തുള്ളി</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Garlic cloves slow-cooked in roasted masala for a bold flavor.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Elephant Foot Yam pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Elephant Foot Yam</h4><p class="text-sm font-semibold text-slate-500">ചേന</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Traditional chena achar with earthy taste and robust seasoning.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Vibrant Beetroot pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Vibrant Beetroot</h4><p class="text-sm font-semibold text-slate-500">ബീറ്റ്റൂട്ട്</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">A mildly sweet and spicy variant with striking color and taste.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Royal Date Mix pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Royal Date Mix</h4><p class="text-sm font-semibold text-slate-500">ഇന്തപ്പഴം മിക്സ്‌</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Dates blended with aromatic spices for sweet and tangy notes.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Tender Jackfruit pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Tender Jackfruit</h4><p class="text-sm font-semibold text-slate-500">ചക്ക</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Raw jackfruit pickle with meaty texture and traditional masala.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="mt-14">
+          <h3 class="mb-5 font-display text-2xl font-bold text-slate-900">Non-Vegetarian Specialties</h3>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Malabar Beef pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Malabar Beef</h4><p class="text-sm font-semibold text-slate-500">ബീഫ്</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Tender beef cuts in rich, slow-roasted Malabar spice blend.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Homestyle Chicken pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Homestyle Chicken</h4><p class="text-sm font-semibold text-slate-500">ചിക്കെൻ</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Spicy chicken achar that pairs perfectly with rice and porotta.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Roasted Prawns pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Roasted Prawns</h4><p class="text-sm font-semibold text-slate-500">ചെമ്മീൻ</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Premium prawns coated in roasted masala for deep seafood flavor.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Netholi pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Netholi</h4><p class="text-sm font-semibold text-slate-500">നെത്തോലി</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Anchovy achar with bold spice profile and signature coastal taste.</p>
+            </article>
+
+            <article class="relative rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <span class="absolute left-4 top-4 rounded-full bg-emerald-100/90 px-3 py-1 text-[11px] font-extrabold tracking-wide text-emerald-800 shadow-sm">Available</span>
+              <img class="mb-4 mt-8 h-64 w-full rounded-lg border border-stone-200 bg-white object-contain p-2" src="productmockup.jpg" alt="Kondattam pickle mockup" loading="lazy" />
+              <div class="flex items-start justify-between gap-3">
+                <div><h4 class="text-lg font-bold text-slate-900">Kondattam</h4><p class="text-sm font-semibold text-slate-500">കൊണ്ടാട്ടം</p></div>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">₹100 | 100g</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">Sun-dried Kerala specialty finished with tangy and crunchy spice mix.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="border-y border-stone-200 bg-white py-20">
+      <div class="mx-auto grid w-[min(1160px,92%)] gap-6 lg:grid-cols-2">
+        <article class="rounded-2xl border border-stone-200 bg-stone-50 p-6">
+          <h3 class="font-display text-3xl font-bold text-slate-900">About Maa's Magic</h3>
+          <p class="mt-3 text-slate-600">
+            We focus on consistency, clean ingredients, and authentic taste so every jar feels like homemade food from a trusted kitchen.
+          </p>
+        </article>
+        <article class="rounded-2xl border border-stone-200 bg-stone-50 p-6">
+          <h3 class="font-display text-3xl font-bold text-slate-900">Serving from Vadakara</h3>
+          <p class="mt-3 text-slate-600">
+            Proudly based in Vadakara, Kerala. We bring local taste traditions to modern households through convenient direct ordering.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="py-20">
+      <div class="mx-auto w-[min(1160px,92%)]">
+        <div class="mx-auto max-w-3xl text-center">
+          <h3 class="font-display text-4xl font-bold text-slate-900">Why families choose Maa's Magic</h3>
+          <p class="mt-3 text-lg text-slate-600">Clear reasons customers keep coming back.</p>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          <article class="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <p class="text-brand-600"><i class="fa-solid fa-seedling"></i></p>
+            <h4 class="mt-2 text-lg font-bold">No artificial preservatives</h4>
+            <p class="mt-1 text-sm text-slate-600">Prepared with trusted ingredients and hygienic handling.</p>
+          </article>
+          <article class="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <p class="text-brand-600"><i class="fa-solid fa-kitchen-set"></i></p>
+            <h4 class="mt-2 text-lg font-bold">Traditional recipe style</h4>
+            <p class="mt-1 text-sm text-slate-600">Built on familiar Kerala home kitchen flavors.</p>
+          </article>
+          <article class="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+            <p class="text-brand-600"><i class="fa-solid fa-truck-fast"></i></p>
+            <h4 class="mt-2 text-lg font-bold">Easy ordering and delivery</h4>
+            <p class="mt-1 text-sm text-slate-600">Quick WhatsApp support and reliable packing flow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="order" class="border-y border-stone-200 bg-white py-20">
+      <div class="mx-auto w-[min(1160px,92%)]">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="font-display text-4xl font-bold text-slate-900">How to Order</h2>
+          <p class="mt-3 text-lg text-slate-600">Simple three-step process through WhatsApp.</p>
+        </div>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          <article class="rounded-xl border border-stone-200 bg-stone-50 p-5">
+            <span class="inline-grid h-8 w-8 place-items-center rounded-full bg-slate-900 text-sm font-bold text-white">1</span>
+            <h4 class="mt-3 text-lg font-bold">Select products</h4>
+            <p class="mt-2 text-sm text-slate-600">Choose your favorite pickle varieties and required quantities.</p>
+          </article>
+          <article class="rounded-xl border border-stone-200 bg-stone-50 p-5">
+            <span class="inline-grid h-8 w-8 place-items-center rounded-full bg-slate-900 text-sm font-bold text-white">2</span>
+            <h4 class="mt-3 text-lg font-bold">Send message on WhatsApp</h4>
+            <p class="mt-2 text-sm text-slate-600">Share your order details and delivery location with our team.</p>
+          </article>
+          <article class="rounded-xl border border-stone-200 bg-stone-50 p-5">
+            <span class="inline-grid h-8 w-8 place-items-center rounded-full bg-slate-900 text-sm font-bold text-white">3</span>
+            <h4 class="mt-3 text-lg font-bold">Confirm and receive</h4>
+            <p class="mt-2 text-sm text-slate-600">We confirm availability, pack fresh, and arrange quick dispatch.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20">
+      <div class="mx-auto w-[min(1160px,92%)]">
+        <div class="rounded-2xl bg-slate-900 p-10 text-center text-white">
+          <h2 class="font-display text-4xl font-bold">Ready to place your order?</h2>
+          <p class="mx-auto mt-3 max-w-xl text-slate-300">Message Maa's Magic on WhatsApp and get started in minutes.</p>
+          <a href="https://wa.me/910000000000" class="mt-7 inline-flex items-center gap-2 rounded-xl bg-brand-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-brand-600">
+            <i class="fa-brands fa-whatsapp"></i>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white py-7">
+    <div class="mx-auto flex w-[min(1160px,92%)] flex-wrap items-center justify-between gap-3 text-sm font-semibold text-slate-500">
+      <p>© 2026 Maa's Magic. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/910000000000" class="hover:text-slate-900">WhatsApp</a>
+        <a href="#" class="hover:text-slate-900">Email</a>
+        <a href="#" class="hover:text-slate-900">Instagram</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
