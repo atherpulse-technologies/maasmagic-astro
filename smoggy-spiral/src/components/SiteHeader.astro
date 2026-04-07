@@ -23,11 +23,6 @@ const isHome = currentPath === "/";
       <a href="/#menu" class="hover:text-slate-900">Products</a>
       <a href="/#about" class="hover:text-slate-900">About</a>
       <a href="/#order" class="hover:text-slate-900">How to Order</a>
-      <button class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2 text-slate-700 hover:bg-stone-100" data-open-cart>
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Cart</span>
-        <span class="inline-grid h-5 min-w-5 place-items-center rounded-full bg-slate-900 px-1 text-[11px] text-white" data-cart-count>0</span>
-      </button>
     </nav>
 
     <div class="flex items-center gap-2 md:hidden">
@@ -39,10 +34,17 @@ const isHome = currentPath === "/";
       </button>
     </div>
 
-    <a href="https://wa.me/910000000000" class="hidden items-center gap-2 rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600 lg:inline-flex">
-      <i class="fa-brands fa-whatsapp"></i>
-      Order Now
-    </a>
+    <div class="hidden items-center gap-2 md:flex">
+      <a href="/#contact" class="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600">
+        <i class="fa-solid fa-headset"></i>
+        Contact Us
+      </a>
+      <button class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2 text-slate-700 hover:bg-stone-100" data-open-cart>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+        <span class="inline-grid h-5 min-w-5 place-items-center rounded-full bg-slate-900 px-1 text-[11px] text-white" data-cart-count>0</span>
+      </button>
+    </div>
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-stone-200 bg-stone-50 md:hidden">
@@ -50,9 +52,9 @@ const isHome = currentPath === "/";
       <a href="/#menu" class="rounded-md px-2 py-2 hover:bg-brand-50">Products</a>
       <a href="/#about" class="rounded-md px-2 py-2 hover:bg-brand-50">About</a>
       <a href="/#order" class="rounded-md px-2 py-2 hover:bg-brand-50">How to Order</a>
-      <a href="https://wa.me/910000000000" class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2 font-bold text-white">
-        <i class="fa-brands fa-whatsapp"></i>
-        Order Now
+      <a href="/#contact" class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2 font-bold text-white">
+        <i class="fa-solid fa-headset"></i>
+        Contact Us
       </a>
     </nav>
   </div>

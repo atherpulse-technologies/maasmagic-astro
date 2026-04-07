@@ -1,4 +1,5 @@
 const CART_KEY = "maasmagic_cart";
+const CUSTOMER_KEY = "maasmagic_customer";
 const WHATSAPP_NUMBER = "910000000000";
 
 const menuToggle = document.getElementById("menu-toggle");
@@ -9,6 +10,23 @@ const cartItems = document.querySelector("[data-cart-items]");
 const cartTotal = document.querySelector("[data-cart-total]");
 const cartCountEls = document.querySelectorAll("[data-cart-count]");
 const whatsappOrderBtn = document.querySelector("[data-whatsapp-order]");
+const orderLoadingOverlay = document.querySelector("[data-order-loading-overlay]");
+const orderConfirmOverlay = document.querySelector("[data-order-confirm-overlay]");
+const orderConfirmYesBtn = document.querySelector("[data-order-confirm-yes]");
+const orderConfirmNoBtn = document.querySelector("[data-order-confirm-no]");
+const orderDesktopHelp = document.querySelector("[data-order-desktop-help]");
+const openWhatsappWebBtn = document.querySelector("[data-open-whatsapp-web]");
+const copyOrderTextBtn = document.querySelector("[data-copy-order-text]");
+const copyStatus = document.querySelector("[data-copy-status]");
+const customerNameInput = document.querySelector("[data-customer-name]");
+const customerAddressInput = document.querySelector("[data-customer-address]");
+const customerPhoneInput = document.querySelector("[data-customer-phone]");
+const customerPreview = document.querySelector("[data-customer-preview]");
+
+let pendingWhatsappMessage = "";
+let pendingWhatsappText = "";
+
+const isLikelyMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
 const getCart = () => {
   try {
@@ -20,6 +38,60 @@ const getCart = () => {
 
 const setCart = (cart) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+};
+
+const getCustomer = () => {
+  try {
+    const raw = JSON.parse(localStorage.getItem(CUSTOMER_KEY) || "{}");
+    return {
+      name: typeof raw.name === "string" ? raw.name : "",
+      address: typeof raw.address === "string" ? raw.address : "",
+      phone: typeof raw.phone === "string" ? raw.phone : "",
+    };
+  } catch {
+    return { name: "", address: "", phone: "" };
+  }
+};
+
+const setCustomer = (customer) => {
+  localStorage.setItem(CUSTOMER_KEY, JSON.stringify(customer));
+};
+
+const readCustomerFromInputs = () => {
+  const name = customerNameInput instanceof HTMLInputElement ? customerNameInput.value.trim() : "";
+  const address = customerAddressInput instanceof HTMLTextAreaElement ? customerAddressInput.value.trim() : "";
+  const phone = customerPhoneInput instanceof HTMLInputElement ? customerPhoneInput.value.trim() : "";
+  return { name, address, phone };
+};
+
+const renderCustomerPreview = (customer) => {
+  if (!(customerPreview instanceof HTMLElement)) return;
+
+  if (!customer.name && !customer.address && !customer.phone) {
+    customerPreview.textContent = "No details saved yet.";
+    return;
+  }
+
+  const parts = [];
+  if (customer.name) parts.push(`Name: ${customer.name}`);
+  if (customer.address) parts.push(`Address: ${customer.address}`);
+  if (customer.phone) parts.push(`Phone: ${customer.phone}`);
+  customerPreview.textContent = parts.join(" | ");
+};
+
+const hydrateCustomerInputs = () => {
+  const customer = getCustomer();
+  if (customerNameInput instanceof HTMLInputElement) customerNameInput.value = customer.name;
+  if (customerAddressInput instanceof HTMLTextAreaElement) customerAddressInput.value = customer.address;
+  if (customerPhoneInput instanceof HTMLInputElement) customerPhoneInput.value = customer.phone;
+  renderCustomerPreview(customer);
+};
+
+const persistCustomerFromInputs = () => {
+  const customer = readCustomerFromInputs();
+  setCustomer(customer);
+  renderCustomerPreview(customer);
+  return customer;
 };
 
 const formatMoney = (value) => `₹${value}`;
@@ -40,6 +112,31 @@ const closeCart = () => {
   cartOverlay.classList.add("pointer-events-none", "opacity-0");
   cartOverlay.classList.remove("bg-slate-900/30", "backdrop-blur-[1px]");
 };
+
+const showOverlay = (overlay) => {
+  if (!(overlay instanceof HTMLElement)) return;
+  overlay.classList.remove("pointer-events-none", "opacity-0");
+};
+
+const hideOverlay = (overlay) => {
+  if (!(overlay instanceof HTMLElement)) return;
+  overlay.classList.add("pointer-events-none", "opacity-0");
+};
+
+const showOrderLoading = () => showOverlay(orderLoadingOverlay);
+const hideOrderLoading = () => hideOverlay(orderLoadingOverlay);
+
+const showOrderConfirm = ({ showDesktopHelp = false } = {}) => {
+  if (orderDesktopHelp instanceof HTMLElement) {
+    orderDesktopHelp.classList.toggle("hidden", !showDesktopHelp);
+  }
+  if (copyStatus instanceof HTMLElement) {
+    copyStatus.textContent = "";
+  }
+  showOverlay(orderConfirmOverlay);
+};
+
+const hideOrderConfirm = () => hideOverlay(orderConfirmOverlay);
 
 const updateCartCount = (cart) => {
   const totalQty = getCartCount(cart);
@@ -122,6 +219,7 @@ const removeItem = (slug) => {
 const buildWhatsappMessage = () => {
   const cart = getCart();
   if (!cart.length) return "";
+  const customer = persistCustomerFromInputs();
 
   let message = "Hi, I want to order:%0A%0A";
 
@@ -130,8 +228,30 @@ const buildWhatsappMessage = () => {
     message += `${index + 1}. ${item.name} - ${item.qty} x ₹${item.price} = ₹${lineTotal}%0A`;
   });
 
-  message += `%0ATotal: ₹${getCartTotal(cart)}%0A%0AName:%0AAddress:%0APhone:%0A`;
+  message += `%0ATotal: ₹${getCartTotal(cart)}%0A%0AName: ${encodeURIComponent(customer.name || "")}%0AAddress: ${encodeURIComponent(customer.address || "")}%0APhone: ${encodeURIComponent(customer.phone || "")}%0A`;
   return message;
+};
+
+const buildWhatsappPlainText = () => {
+  const cart = getCart();
+  if (!cart.length) return "";
+  const customer = persistCustomerFromInputs();
+
+  const lines = ["Hi, I want to order:", ""];
+
+  cart.forEach((item, index) => {
+    const lineTotal = item.price * item.qty;
+    lines.push(`${index + 1}. ${item.name} - ${item.qty} x ₹${item.price} = ₹${lineTotal}`);
+  });
+
+  lines.push("");
+  lines.push(`Total: ₹${getCartTotal(cart)}`);
+  lines.push("");
+  lines.push(`Name: ${customer.name}`);
+  lines.push(`Address: ${customer.address}`);
+  lines.push(`Phone: ${customer.phone}`);
+
+  return lines.join("\n");
 };
 
 if (menuToggle && mobileMenu) {
@@ -192,15 +312,93 @@ document.addEventListener("click", (e) => {
 
 if (whatsappOrderBtn) {
   whatsappOrderBtn.addEventListener("click", () => {
+    const customer = persistCustomerFromInputs();
+    if (!customer.name || !customer.address || !customer.phone) {
+      openCart();
+      if (customerPreview instanceof HTMLElement) {
+        customerPreview.textContent = "Please add name, address, and phone before checkout.";
+      }
+      return;
+    }
+
     const message = buildWhatsappMessage();
     if (!message) return;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
+
+    pendingWhatsappMessage = message;
+    pendingWhatsappText = buildWhatsappPlainText();
+
+    showOrderLoading();
+
+    window.setTimeout(() => {
+      hideOrderLoading();
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${pendingWhatsappMessage}`;
+      const newTab = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      const popupBlocked = !newTab;
+      showOrderConfirm({ showDesktopHelp: !isLikelyMobile || popupBlocked });
+    }, 2600);
+  });
+}
+
+if (orderConfirmYesBtn instanceof HTMLElement) {
+  orderConfirmYesBtn.addEventListener("click", () => {
+    setCart([]);
+    renderCart();
+    hideOrderConfirm();
+    closeCart();
+  });
+}
+
+if (orderConfirmNoBtn instanceof HTMLElement) {
+  orderConfirmNoBtn.addEventListener("click", () => {
+    hideOrderConfirm();
+    openCart();
+  });
+}
+
+if (openWhatsappWebBtn instanceof HTMLElement) {
+  openWhatsappWebBtn.addEventListener("click", () => {
+    if (!pendingWhatsappMessage) return;
+    window.open(`https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${pendingWhatsappMessage}`, "_blank", "noopener,noreferrer");
+  });
+}
+
+if (copyOrderTextBtn instanceof HTMLElement) {
+  copyOrderTextBtn.addEventListener("click", async () => {
+    if (!pendingWhatsappText) return;
+
+    try {
+      await navigator.clipboard.writeText(pendingWhatsappText);
+      if (copyStatus instanceof HTMLElement) {
+        copyStatus.textContent = "Order text copied. Paste it into WhatsApp chat.";
+      }
+    } catch {
+      if (copyStatus instanceof HTMLElement) {
+        copyStatus.textContent = "Could not copy automatically. Please retry.";
+      }
+    }
+  });
+}
+
+[customerNameInput, customerAddressInput, customerPhoneInput].forEach((field) => {
+  if (!(field instanceof HTMLElement)) return;
+  field.addEventListener("input", () => {
+    persistCustomerFromInputs();
+  });
+});
+
+if (orderConfirmOverlay instanceof HTMLElement) {
+  orderConfirmOverlay.addEventListener("click", (e) => {
+    if (e.target === orderConfirmOverlay) {
+      hideOrderConfirm();
+    }
   });
 }
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeCart();
+    hideOrderLoading();
+    hideOrderConfirm();
     if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
       mobileMenu.classList.add("hidden");
       if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
@@ -209,3 +407,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 renderCart();
+hydrateCustomerInputs();

@@ -12,3 +12,14 @@
 
 	--shadow-soft: 0 16px 36px rgba(15, 23, 42, 0.08);
 }
+
+@keyframes orderSpinner {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.order-spinner {
+	animation: orderSpinner 0.9s linear infinite;
+	border-top-color: var(--color-brand-500);
+}
