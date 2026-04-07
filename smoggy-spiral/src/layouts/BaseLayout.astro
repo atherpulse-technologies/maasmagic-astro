@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { companyContact } from "../config/contact";
 
 interface Props {
   title?: string;
@@ -68,7 +69,12 @@ const canonical = `${siteUrl}${canonicalPath}`;
       })}
     </script>
   </head>
-  <body class="bg-stone-50 text-slate-800 antialiased">
+  <body
+    class="bg-stone-50 text-slate-800 antialiased"
+    data-company-whatsapp-number={companyContact.whatsappNumber}
+    data-company-phone-e164={companyContact.phoneE164}
+    data-company-email={companyContact.email}
+  >
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-slate-900 focus:px-3 focus:py-2 focus:text-sm focus:text-white">Skip to content</a>
     <slot />
     <script is:inline type="module" src={`${import.meta.env.BASE_URL}js/site-ui.js`}></script>

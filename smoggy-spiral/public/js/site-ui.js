@@ -1,6 +1,6 @@
 const CART_KEY = "maasmagic_cart";
 const CUSTOMER_KEY = "maasmagic_customer";
-const WHATSAPP_NUMBER = "910000000000";
+const WHATSAPP_NUMBER = document.body?.dataset.companyWhatsappNumber?.trim() || "919605471074";
 
 const menuToggle = document.getElementById("menu-toggle");
 const mobileMenu = document.getElementById("mobile-menu");
