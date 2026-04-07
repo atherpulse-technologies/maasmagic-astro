@@ -9,9 +9,9 @@ const isHome = currentPath === "/";
 
 <header class="sticky top-0 z-40 border-b border-stone-200 bg-stone-50 shadow-[0_2px_10px_rgba(15,23,42,0.05)]">
   <div class="mx-auto flex h-24 w-[min(1160px,92%)] items-center justify-between gap-3 md:h-28">
-    <a href="/" class="flex items-center gap-2 md:gap-3">
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 md:gap-3">
       <span class="grid h-20 w-20 place-items-center overflow-hidden md:h-24 md:w-24">
-        <img src="/maasmagic_logo.png" alt="Maa's Magic logo" class="h-full w-full object-contain" loading="eager" />
+        <img src={`${import.meta.env.BASE_URL}maasmagic_logo.png`} alt="Maa's Magic logo" class="h-full w-full object-contain" loading="eager" />
       </span>
       <span class="leading-tight">
         <span class="block font-display text-2xl font-bold text-slate-900 md:text-3xl">Maa's Magic</span>
@@ -20,9 +20,9 @@ const isHome = currentPath === "/";
     </a>
 
     <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex" aria-label="Primary navigation">
-      <a href="/#menu" class="hover:text-slate-900">Products</a>
-      <a href="/#about" class="hover:text-slate-900">About</a>
-      <a href="/#order" class="hover:text-slate-900">How to Order</a>
+      <a href={`${import.meta.env.BASE_URL}#menu`} class="hover:text-slate-900">Products</a>
+      <a href={`${import.meta.env.BASE_URL}#about`} class="hover:text-slate-900">About</a>
+      <a href={`${import.meta.env.BASE_URL}#order`} class="hover:text-slate-900">How to Order</a>
     </nav>
 
     <div class="flex items-center gap-2 md:hidden">
@@ -35,7 +35,7 @@ const isHome = currentPath === "/";
     </div>
 
     <div class="hidden items-center gap-2 md:flex">
-      <a href="/#contact" class="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600">
+      <a href={`${import.meta.env.BASE_URL}#contact`} class="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600">
         <i class="fa-solid fa-headset"></i>
         Contact Us
       </a>
@@ -49,10 +49,10 @@ const isHome = currentPath === "/";
 
   <div id="mobile-menu" class="hidden border-t border-stone-200 bg-stone-50 md:hidden">
     <nav class="mx-auto flex w-[min(1160px,92%)] flex-col gap-1 py-3 text-sm font-semibold text-slate-700" aria-label="Mobile navigation">
-      <a href="/#menu" class="rounded-md px-2 py-2 hover:bg-brand-50">Products</a>
-      <a href="/#about" class="rounded-md px-2 py-2 hover:bg-brand-50">About</a>
-      <a href="/#order" class="rounded-md px-2 py-2 hover:bg-brand-50">How to Order</a>
-      <a href="/#contact" class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2 font-bold text-white">
+      <a href={`${import.meta.env.BASE_URL}#menu`} class="rounded-md px-2 py-2 hover:bg-brand-50">Products</a>
+      <a href={`${import.meta.env.BASE_URL}#about`} class="rounded-md px-2 py-2 hover:bg-brand-50">About</a>
+      <a href={`${import.meta.env.BASE_URL}#order`} class="rounded-md px-2 py-2 hover:bg-brand-50">How to Order</a>
+      <a href={`${import.meta.env.BASE_URL}#contact`} class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2 font-bold text-white">
         <i class="fa-solid fa-headset"></i>
         Contact Us
       </a>

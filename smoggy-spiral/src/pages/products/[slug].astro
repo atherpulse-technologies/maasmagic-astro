@@ -29,7 +29,7 @@ const qtyInputId = `qty-${product.slug}`;
   <main id="main-content" class="pb-20">
     <section class="border-b border-stone-200 bg-white py-10">
       <div class="mx-auto w-[min(1160px,92%)]">
-        <a href="/#menu" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900">
+        <a href={`${import.meta.env.BASE_URL}#menu`} class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900">
           <i class="fa-solid fa-arrow-left"></i>
           Back to products
         </a>
@@ -37,17 +37,17 @@ const qtyInputId = `qty-${product.slug}`;
         <div class="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <article class="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
             <div class="rounded-xl border border-stone-200 bg-stone-50 p-4">
-              <img src="/productmockup.jpg" alt={`${product.name} product image`} class="h-[360px] w-full object-contain" />
+              <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt={`${product.name} product image`} class="h-[360px] w-full object-contain" />
             </div>
             <div class="mt-4 grid grid-cols-3 gap-3">
               <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src="/productmockup.jpg" alt="Thumb 1" class="h-20 w-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 1" class="h-20 w-full object-contain" />
               </div>
               <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src="/productmockup.jpg" alt="Thumb 2" class="h-20 w-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 2" class="h-20 w-full object-contain" />
               </div>
               <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src="/productmockup.jpg" alt="Thumb 3" class="h-20 w-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 3" class="h-20 w-full object-contain" />
               </div>
             </div>
           </article>
@@ -92,7 +92,7 @@ const qtyInputId = `qty-${product.slug}`;
                 data-product-slug={product.slug}
                 data-product-name={product.name}
                 data-product-price={product.price}
-                data-product-image="/productmockup.jpg"
+                data-product-image={`${import.meta.env.BASE_URL}productmockup.jpg`}
                 data-qty-input={qtyInputId}
               >
                 <i class="fa-solid fa-cart-plus"></i>
