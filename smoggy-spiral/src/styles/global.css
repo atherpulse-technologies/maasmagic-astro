@@ -19,7 +19,220 @@
 	}
 }
 
+@keyframes orderLoadingBar {
+	0% {
+		transform: translateX(-60%);
+	}
+	50% {
+		transform: translateX(20%);
+	}
+	100% {
+		transform: translateX(120%);
+	}
+}
+
+@keyframes orderLoadingFloat {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+@keyframes cartToastIn {
+	0% {
+		opacity: 0;
+		transform: translateY(18px) scale(0.96);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes feedbackPulseGreen {
+	0% {
+		box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.45);
+	}
+	70% {
+		box-shadow: 0 0 0 12px rgba(5, 150, 105, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
+	}
+}
+
+@keyframes feedbackPulseRed {
+	0% {
+		box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.45);
+	}
+	70% {
+		box-shadow: 0 0 0 12px rgba(225, 29, 72, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+	}
+}
+
+@keyframes orderResultIn {
+	0% {
+		opacity: 0;
+		transform: translateY(24px) scale(0.96);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes orderBurstPulse {
+	0% {
+		transform: scale(0.8);
+		opacity: 0.55;
+	}
+	70% {
+		transform: scale(1.15);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
+}
+
+@keyframes orderShake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	15% {
+		transform: translateX(-10px);
+	}
+	30% {
+		transform: translateX(8px);
+	}
+	45% {
+		transform: translateX(-6px);
+	}
+	60% {
+		transform: translateX(4px);
+	}
+	75% {
+		transform: translateX(-2px);
+	}
+}
+
 .order-spinner {
 	animation: orderSpinner 0.9s linear infinite;
 	border-top-color: var(--color-brand-500);
+}
+
+.order-loading-shell {
+	animation: orderLoadingFloat 2.8s ease-in-out infinite;
+}
+
+.order-loading-rings {
+	position: relative;
+}
+
+.order-loading-rings::before,
+.order-loading-rings::after {
+	content: "";
+	position: absolute;
+	inset: -16px;
+	border-radius: 9999px;
+	border: 1px solid rgba(16, 185, 129, 0.12);
+	box-shadow: 0 0 0 14px rgba(16, 185, 129, 0.04);
+}
+
+.order-loading-rings::after {
+	inset: -28px;
+	border-color: rgba(200, 154, 44, 0.12);
+	box-shadow: 0 0 0 22px rgba(200, 154, 44, 0.04);
+}
+
+.order-loading-bar {
+	animation: orderLoadingBar 1.8s linear infinite;
+}
+
+.order-confirm-shell {
+	animation: orderLoadingFloat 3s ease-in-out infinite;
+}
+
+.order-confirm-icon {
+	position: relative;
+}
+
+.order-confirm-icon::before,
+.order-confirm-icon::after {
+	content: "";
+	position: absolute;
+	inset: -16px;
+	border-radius: 9999px;
+	border: 1px solid rgba(16, 185, 129, 0.12);
+	box-shadow: 0 0 0 14px rgba(16, 185, 129, 0.04);
+}
+
+.order-confirm-icon::after {
+	inset: -28px;
+	border-color: rgba(200, 154, 44, 0.12);
+	box-shadow: 0 0 0 22px rgba(200, 154, 44, 0.04);
+}
+
+.cart-toast-visible {
+	animation: cartToastIn 0.22s ease-out;
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.order-feedback-success {
+	animation: feedbackPulseGreen 0.65s ease-out;
+}
+
+.order-feedback-failure {
+	animation: feedbackPulseRed 0.65s ease-out;
+}
+
+.order-result-shell {
+	animation: orderResultIn 0.28s ease-out;
+}
+
+.order-result-hero {
+	position: relative;
+	animation: orderBurstPulse 1.2s ease-in-out infinite;
+}
+
+.order-result-hero::before,
+.order-result-hero::after {
+	content: "";
+	position: absolute;
+	inset: -22px;
+	border-radius: 9999px;
+	border: 2px solid rgba(255, 255, 255, 0.14);
+	box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.04);
+}
+
+.order-result-shell[data-tone="success"] .order-result-hero {
+	background: radial-gradient(circle at center, rgba(16, 185, 129, 0.24), rgba(16, 185, 129, 0.08));
+}
+
+.order-result-shell[data-tone="success"] .order-result-hero-inner {
+	color: #059669;
+	box-shadow: 0 16px 40px rgba(16, 185, 129, 0.22);
+}
+
+.order-result-shell[data-tone="failure"] .order-result-hero {
+	background: radial-gradient(circle at center, rgba(225, 29, 72, 0.22), rgba(225, 29, 72, 0.08));
+	animation: orderShake 0.5s ease-in-out, orderBurstPulse 1.2s ease-in-out infinite;
+}
+
+.order-result-shell[data-tone="failure"] .order-result-hero-inner {
+	color: #e11d48;
+	box-shadow: 0 16px 40px rgba(225, 29, 72, 0.24);
+}
+
+.order-result-shell[data-tone="failure"] [data-order-result-eyebrow] {
+	color: #e11d48;
 }

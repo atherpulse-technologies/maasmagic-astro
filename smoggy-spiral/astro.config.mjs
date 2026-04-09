@@ -14,6 +14,7 @@ const base = rawBase ? (rawBase.endsWith('/') ? rawBase : `${rawBase}/`) : undef
 export default defineConfig({
   site,
   base,
+  trailingSlash: 'always',
   vite: {
     plugins: [tailwindcss()]
   }

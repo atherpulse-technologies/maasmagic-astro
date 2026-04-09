@@ -21,9 +21,9 @@ const qtyInputId = `qty-${product.slug}`;
 <BaseLayout
   title={`${product.name} | Maa's Magic`}
   description={product.longDescription}
-  canonicalPath={`/products/${product.slug}`}
+  canonicalPath={`/products/${product.slug}/`}
 >
-  <SiteHeader currentPath={`/products/${product.slug}`} />
+  <SiteHeader currentPath={`/products/${product.slug}/`} />
   <CartDrawer />
 
   <main id="main-content" class="pb-20">

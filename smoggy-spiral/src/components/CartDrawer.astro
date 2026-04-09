@@ -46,42 +46,122 @@
   </footer>
 </aside>
 
+<section class="pointer-events-none fixed inset-0 z-[75] opacity-0 transition-opacity duration-200" data-cart-toast-overlay>
+  <div class="absolute inset-0 bg-slate-950/58 backdrop-blur-md"></div>
+  <div class="relative flex h-full w-full items-center justify-center px-4 py-6">
+    <div class="cart-toast-shell w-full max-w-xl rounded-[1.5rem] border border-emerald-200 bg-white/95 p-4 shadow-[0_24px_70px_rgba(15,23,42,0.26)] sm:p-6" data-cart-toast aria-live="polite"></div>
+  </div>
+</section>
+
 <section class="pointer-events-none fixed inset-0 z-[70] opacity-0 transition-opacity duration-200" data-order-loading-overlay>
-  <div class="absolute inset-0 bg-slate-950/75"></div>
-  <div class="relative flex h-full w-full items-center justify-center px-4 text-center">
-    <div class="w-full max-w-xl">
-      <span class="order-spinner mx-auto inline-block h-14 w-14 rounded-full border-4 border-white/30"></span>
-      <h3 class="mt-6 font-display text-4xl font-bold text-white">Preparing your WhatsApp order...</h3>
-      <p class="mt-3 text-base text-white/80">Please wait while we package your cart details.</p>
+  <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
+  <div class="relative flex h-full w-full items-center justify-center px-4 py-6 text-center">
+    <div class="order-loading-shell w-full max-w-xl rounded-[1.5rem] border border-white/15 bg-white/95 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.26)] sm:p-6">
+      <div class="order-loading-rings mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-emerald-50">
+        <span class="order-spinner block h-14 w-14 rounded-full border-4 border-emerald-200"></span>
+      </div>
+
+      <p class="mt-5 text-xs font-extrabold uppercase tracking-[0.35em] text-brand-600">WhatsApp checkout</p>
+      <h3 class="mt-2 font-display text-3xl font-bold text-slate-900 sm:text-4xl">Preparing your order</h3>
+      <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 sm:text-base">We are packaging your cart, customer details, and message so WhatsApp opens with everything ready.</p>
+
+      <div class="mt-6 grid gap-3 text-left sm:grid-cols-3">
+        <div class="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+          <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-slate-500">Step 1</p>
+          <p class="mt-2 text-sm font-bold text-slate-800">Collect items</p>
+        </div>
+        <div class="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+          <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-slate-500">Step 2</p>
+          <p class="mt-2 text-sm font-bold text-slate-800">Build WhatsApp text</p>
+        </div>
+        <div class="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+          <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-slate-500">Step 3</p>
+          <p class="mt-2 text-sm font-bold text-slate-800">Open chat window</p>
+        </div>
+      </div>
+
+      <div class="mt-6 overflow-hidden rounded-full bg-emerald-100/80">
+        <div class="order-loading-bar h-2 w-1/2 rounded-full bg-gradient-to-r from-emerald-500 via-brand-500 to-emerald-400"></div>
+      </div>
+
+      <p class="mt-3 text-sm font-semibold text-slate-500">Usually takes about a second.</p>
     </div>
   </div>
 </section>
 
 <section class="pointer-events-none fixed inset-0 z-[70] opacity-0 transition-opacity duration-200" data-order-confirm-overlay>
-  <div class="absolute inset-0 bg-slate-950/80"></div>
-  <div class="relative flex h-full w-full items-center justify-center px-4 py-6">
-    <div class="w-full max-w-2xl rounded-3xl border border-white/20 bg-white p-6 shadow-soft sm:p-8">
-      <h3 class="font-display text-3xl font-bold text-slate-900 sm:text-4xl">Did you place the WhatsApp order?</h3>
-      <p class="mt-2 text-sm text-slate-600 sm:text-base">If your order was sent on WhatsApp, confirm below and we will clear your cart.</p>
-      <div class="mt-5 hidden rounded-xl border border-stone-200 bg-stone-50 p-4" data-order-desktop-help>
-        <p class="text-sm font-semibold text-slate-800">Desktop fallback:</p>
-        <p class="mt-1 text-sm text-slate-600">If WhatsApp app did not open, use WhatsApp Web or copy the message and paste it manually.</p>
+  <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
+  <div class="relative flex h-full w-full items-center justify-center px-4 py-6 text-center">
+    <div class="order-confirm-shell w-full max-w-xl rounded-[1.5rem] border border-white/15 bg-white/95 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.26)] sm:p-6" data-order-confirm-card>
+      <div class="order-confirm-icon mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-emerald-50">
+        <div class="grid h-16 w-16 place-items-center rounded-full bg-white text-3xl text-emerald-600 shadow-lg">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+      </div>
+
+      <p class="mt-5 text-xs font-extrabold uppercase tracking-[0.35em] text-brand-600">WhatsApp checkout</p>
+      <h3 class="mt-2 font-display text-3xl font-bold text-slate-900 sm:text-4xl">Finish WhatsApp Checkout</h3>
+      <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 sm:text-base">Review the message, copy it if needed, then confirm whether the order was sent.</p>
+
+      <div class="mt-6 rounded-[1.5rem] border border-stone-200 bg-stone-50 p-4 text-left sm:p-5">
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-slate-700">Order text to send</p>
+          <span class="rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500">Ready</span>
+        </div>
+        <textarea
+          class="mt-3 h-32 w-full resize-none rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm leading-6 text-slate-700 outline-none ring-brand-300 focus:ring"
+          readonly
+          data-order-text-preview
+        ></textarea>
+        <p class="mt-2 text-sm text-slate-500">If WhatsApp did not autofill this text, use the buttons below and paste manually.</p>
+
         <div class="mt-4 grid gap-2 sm:grid-cols-2">
-          <button class="inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-bold text-slate-700 hover:bg-stone-100" data-open-whatsapp-web>
+          <button class="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 hover:bg-stone-100" data-open-whatsapp-web>
             Open WhatsApp Web
           </button>
-          <button class="inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-bold text-slate-700 hover:bg-stone-100" data-copy-order-text>
+          <button class="inline-flex items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 hover:bg-stone-100" data-copy-order-text>
             Copy Order Text
           </button>
         </div>
-        <p class="mt-2 text-xs text-emerald-700" data-copy-status></p>
+        <p class="mt-3 text-sm font-semibold text-emerald-700" data-copy-status></p>
       </div>
-      <div class="mt-6 grid gap-2 sm:grid-cols-2">
-        <button class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-700" data-order-confirm-yes>
-          Yes, order placed
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        <button class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-5 py-4 text-sm font-bold text-white hover:bg-emerald-700" data-order-confirm-success>
+          Success, order sent
         </button>
-        <button class="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 hover:bg-stone-50" data-order-confirm-no>
-          Not yet
+        <button class="inline-flex items-center justify-center rounded-2xl bg-rose-600 px-5 py-4 text-sm font-bold text-white hover:bg-rose-700" data-order-confirm-failure>
+          Failed, try again
+        </button>
+      </div>
+
+      <p class="mt-3 text-xs text-slate-500">Failure keeps your cart untouched, so you can retry safely.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pointer-events-none fixed inset-0 z-[80] opacity-0 transition-opacity duration-200" data-order-result-overlay>
+  <div class="absolute inset-0 bg-slate-950/78 backdrop-blur-sm"></div>
+  <div class="relative flex h-full w-full items-center justify-center px-4 py-6">
+    <div class="order-result-shell w-full max-w-xl rounded-[1.5rem] border border-white/15 bg-white/95 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.26)] sm:p-6" data-order-result-card data-tone="success">
+      <div class="order-result-hero mx-auto flex h-24 w-24 items-center justify-center rounded-full" data-order-result-icon>
+        <div class="order-result-hero-inner grid h-16 w-16 place-items-center rounded-full bg-white text-3xl text-emerald-600 shadow-lg">
+          <i class="fa-solid fa-check"></i>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <p class="text-xs font-extrabold uppercase tracking-[0.35em] text-emerald-700" data-order-result-eyebrow>Success</p>
+        <h3 class="mt-2 font-display text-3xl font-bold text-slate-900 sm:text-4xl" data-order-result-title>Order sent successfully</h3>
+        <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 sm:text-base" data-order-result-message>Checkout more items while we prepare your current order.</p>
+      </div>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        <button class="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-4 text-sm font-bold text-white hover:bg-slate-800" data-order-result-primary>
+          Keep shopping
+        </button>
+        <button class="inline-flex items-center justify-center gap-2 rounded-2xl border border-stone-300 bg-white px-5 py-4 text-sm font-bold text-slate-700 hover:bg-stone-50" data-order-result-secondary>
+          Close
         </button>
       </div>
     </div>

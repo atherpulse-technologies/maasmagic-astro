@@ -12,9 +12,20 @@ const cartCountEls = document.querySelectorAll("[data-cart-count]");
 const whatsappOrderBtn = document.querySelector("[data-whatsapp-order]");
 const orderLoadingOverlay = document.querySelector("[data-order-loading-overlay]");
 const orderConfirmOverlay = document.querySelector("[data-order-confirm-overlay]");
-const orderConfirmYesBtn = document.querySelector("[data-order-confirm-yes]");
-const orderConfirmNoBtn = document.querySelector("[data-order-confirm-no]");
-const orderDesktopHelp = document.querySelector("[data-order-desktop-help]");
+const orderConfirmCard = document.querySelector("[data-order-confirm-card]");
+const orderConfirmSuccessBtn = document.querySelector("[data-order-confirm-success]");
+const orderConfirmFailureBtn = document.querySelector("[data-order-confirm-failure]");
+const orderTextPreview = document.querySelector("[data-order-text-preview]");
+const cartToastOverlay = document.querySelector("[data-cart-toast-overlay]");
+const cartToast = document.querySelector("[data-cart-toast]");
+const orderResultOverlay = document.querySelector("[data-order-result-overlay]");
+const orderResultCard = document.querySelector("[data-order-result-card]");
+const orderResultIcon = document.querySelector("[data-order-result-icon]");
+const orderResultEyebrow = document.querySelector("[data-order-result-eyebrow]");
+const orderResultTitle = document.querySelector("[data-order-result-title]");
+const orderResultMessage = document.querySelector("[data-order-result-message]");
+const orderResultPrimaryBtn = document.querySelector("[data-order-result-primary]");
+const orderResultSecondaryBtn = document.querySelector("[data-order-result-secondary]");
 const openWhatsappWebBtn = document.querySelector("[data-open-whatsapp-web]");
 const copyOrderTextBtn = document.querySelector("[data-copy-order-text]");
 const copyStatus = document.querySelector("[data-copy-status]");
@@ -25,8 +36,7 @@ const customerPreview = document.querySelector("[data-customer-preview]");
 
 let pendingWhatsappMessage = "";
 let pendingWhatsappText = "";
-
-const isLikelyMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+let toastTimerId;
 
 const getCart = () => {
   try {
@@ -126,17 +136,113 @@ const hideOverlay = (overlay) => {
 const showOrderLoading = () => showOverlay(orderLoadingOverlay);
 const hideOrderLoading = () => hideOverlay(orderLoadingOverlay);
 
-const showOrderConfirm = ({ showDesktopHelp = false } = {}) => {
-  if (orderDesktopHelp instanceof HTMLElement) {
-    orderDesktopHelp.classList.toggle("hidden", !showDesktopHelp);
+const hideOrderResult = () => hideOverlay(orderResultOverlay);
+
+const showOrderResult = ({ tone, eyebrow, title, message, primaryLabel, secondaryLabel }) => {
+  if (orderResultOverlay instanceof HTMLElement) {
+    orderResultOverlay.classList.remove("pointer-events-none", "opacity-0");
   }
+
+  if (orderResultCard instanceof HTMLElement) {
+    orderResultCard.dataset.tone = tone;
+  }
+
+  if (orderResultEyebrow instanceof HTMLElement) {
+    orderResultEyebrow.textContent = eyebrow;
+  }
+
+  if (orderResultTitle instanceof HTMLElement) {
+    orderResultTitle.textContent = title;
+  }
+
+  if (orderResultMessage instanceof HTMLElement) {
+    orderResultMessage.textContent = message;
+  }
+
+  if (orderResultPrimaryBtn instanceof HTMLElement) {
+    orderResultPrimaryBtn.textContent = primaryLabel;
+  }
+
+  if (orderResultSecondaryBtn instanceof HTMLElement) {
+    orderResultSecondaryBtn.textContent = secondaryLabel;
+  }
+
+  if (orderResultIcon instanceof HTMLElement) {
+    orderResultIcon.innerHTML =
+      tone === "failure"
+        ? '<div class="order-result-hero-inner grid h-20 w-20 place-items-center rounded-full bg-white text-4xl text-rose-600 shadow-lg"><i class="fa-solid fa-triangle-exclamation"></i></div>'
+        : '<div class="order-result-hero-inner grid h-20 w-20 place-items-center rounded-full bg-white text-4xl text-emerald-600 shadow-lg"><i class="fa-solid fa-check"></i></div>';
+  }
+
+  showOverlay(orderResultOverlay);
+};
+
+const showOrderConfirm = () => {
   if (copyStatus instanceof HTMLElement) {
     copyStatus.textContent = "";
+  }
+  if (orderTextPreview instanceof HTMLTextAreaElement) {
+    orderTextPreview.value = pendingWhatsappText;
   }
   showOverlay(orderConfirmOverlay);
 };
 
 const hideOrderConfirm = () => hideOverlay(orderConfirmOverlay);
+
+const showToast = (message, tone = "success") => {
+  if (!(cartToast instanceof HTMLElement)) return;
+
+  if (cartToastOverlay instanceof HTMLElement) {
+    cartToastOverlay.classList.remove("pointer-events-none", "opacity-0");
+  }
+
+  cartToast.innerHTML =
+    tone === "error"
+      ? `<div class="flex items-center gap-4"><span class="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-rose-600 text-white shadow-lg"><i class="fa-solid fa-circle-exclamation text-2xl"></i></span><div class="min-w-0 flex-1"><p class="text-xs font-extrabold uppercase tracking-[0.3em] text-rose-700">Cart update</p><p class="mt-2 text-2xl font-black leading-tight text-rose-950 sm:text-3xl">${message}</p><p class="mt-3 text-sm font-semibold text-rose-700">Review the cart, adjust quantities, or retry checkout.</p></div></div>`
+      : `<div class="flex items-center gap-4"><span class="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg"><i class="fa-solid fa-circle-check text-2xl"></i></span><div class="min-w-0 flex-1"><p class="text-xs font-extrabold uppercase tracking-[0.3em] text-emerald-700">Added to cart</p><p class="mt-2 text-2xl font-black leading-tight text-emerald-950 sm:text-3xl">${message}</p><p class="mt-3 text-sm font-semibold text-emerald-700">Open the cart to review, then continue shopping or checkout.</p></div></div>`;
+  cartToast.classList.remove(
+    "pointer-events-none",
+    "opacity-0",
+    "cart-toast-visible",
+    "border-rose-200",
+    "bg-rose-50/95",
+    "text-rose-800",
+    "border-emerald-200",
+    "bg-emerald-50/95",
+    "text-emerald-800"
+  );
+
+  if (tone === "error") {
+    cartToast.classList.add("border-rose-200", "bg-rose-50/95");
+  } else {
+    cartToast.classList.add("border-emerald-200", "bg-emerald-50/95");
+  }
+
+  cartToast.classList.add("cart-toast-visible");
+
+  window.clearTimeout(toastTimerId);
+  toastTimerId = window.setTimeout(() => {
+    cartToast.classList.remove("cart-toast-visible");
+    cartToast.classList.add("pointer-events-none", "opacity-0");
+    if (cartToastOverlay instanceof HTMLElement) {
+      cartToastOverlay.classList.add("pointer-events-none", "opacity-0");
+    }
+  }, 1000);
+};
+
+const showAddedState = (buttonEl) => {
+  if (!(buttonEl instanceof HTMLElement)) return;
+  const originalHtml = buttonEl.innerHTML;
+  buttonEl.innerHTML = '<i class="fa-solid fa-check"></i> Added';
+  buttonEl.classList.remove("bg-slate-900", "hover:bg-slate-800");
+  buttonEl.classList.add("bg-emerald-600", "hover:bg-emerald-700");
+
+  window.setTimeout(() => {
+    buttonEl.innerHTML = originalHtml;
+    buttonEl.classList.remove("bg-emerald-600", "hover:bg-emerald-700");
+    buttonEl.classList.add("bg-slate-900", "hover:bg-slate-800");
+  }, 1100);
+};
 
 const updateCartCount = (cart) => {
   const totalQty = getCartCount(cart);
@@ -196,7 +302,7 @@ const addToCart = (product, qty = 1) => {
 
   setCart(cart);
   renderCart();
-  openCart();
+  showToast(`Added ${product.name} to cart`);
 };
 
 const updateQty = (slug, delta) => {
@@ -295,6 +401,7 @@ document.addEventListener("click", (e) => {
 
     if (!slug || !name || !price) return;
     addToCart({ slug, name, price, image }, qty);
+    showAddedState(addBtn);
     return;
   }
 
@@ -333,25 +440,69 @@ if (whatsappOrderBtn) {
       hideOrderLoading();
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${pendingWhatsappMessage}`;
       const newTab = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-      const popupBlocked = !newTab;
-      showOrderConfirm({ showDesktopHelp: !isLikelyMobile || popupBlocked });
-    }, 2600);
+      if (!newTab) {
+        showToast("Popup blocked. Use the WhatsApp Web button below.", "error");
+      }
+      showOrderConfirm();
+    }, 1000);
   });
 }
 
-if (orderConfirmYesBtn instanceof HTMLElement) {
-  orderConfirmYesBtn.addEventListener("click", () => {
+if (orderConfirmSuccessBtn instanceof HTMLElement) {
+  orderConfirmSuccessBtn.addEventListener("click", () => {
     setCart([]);
     renderCart();
     hideOrderConfirm();
     closeCart();
+    showOrderResult({
+      tone: "success",
+      eyebrow: "Success",
+      title: "Order sent successfully",
+      message: "Great. You can keep shopping and checkout more items from the menu.",
+      primaryLabel: "Browse more items",
+      secondaryLabel: "Close",
+    });
   });
 }
 
-if (orderConfirmNoBtn instanceof HTMLElement) {
-  orderConfirmNoBtn.addEventListener("click", () => {
-    hideOrderConfirm();
-    openCart();
+if (orderConfirmFailureBtn instanceof HTMLElement) {
+  orderConfirmFailureBtn.addEventListener("click", () => {
+    showOrderResult({
+      tone: "failure",
+      eyebrow: "Failure",
+      title: "Order not sent",
+      message: "Nothing was cleared. Try again from WhatsApp or copy the text and resend it.",
+      primaryLabel: "Try again",
+      secondaryLabel: "Back to cart",
+    });
+  });
+}
+
+if (orderResultPrimaryBtn instanceof HTMLElement) {
+  orderResultPrimaryBtn.addEventListener("click", () => {
+    const tone = orderResultCard instanceof HTMLElement ? orderResultCard.dataset.tone : "success";
+    hideOrderResult();
+
+    if (tone === "failure") {
+      showOrderConfirm();
+      return;
+    }
+
+    const menuSection = document.getElementById("menu");
+    if (menuSection instanceof HTMLElement) {
+      menuSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
+
+if (orderResultSecondaryBtn instanceof HTMLElement) {
+  orderResultSecondaryBtn.addEventListener("click", () => {
+    const tone = orderResultCard instanceof HTMLElement ? orderResultCard.dataset.tone : "success";
+    hideOrderResult();
+
+    if (tone === "failure") {
+      openCart();
+    }
   });
 }
 
@@ -371,10 +522,12 @@ if (copyOrderTextBtn instanceof HTMLElement) {
       if (copyStatus instanceof HTMLElement) {
         copyStatus.textContent = "Order text copied. Paste it into WhatsApp chat.";
       }
+      showToast("Order text copied");
     } catch {
       if (copyStatus instanceof HTMLElement) {
         copyStatus.textContent = "Could not copy automatically. Please retry.";
       }
+      showToast("Copy failed. Please retry.", "error");
     }
   });
 }
@@ -399,6 +552,7 @@ document.addEventListener("keydown", (e) => {
     closeCart();
     hideOrderLoading();
     hideOrderConfirm();
+    hideOrderResult();
     if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
       mobileMenu.classList.add("hidden");
       if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");

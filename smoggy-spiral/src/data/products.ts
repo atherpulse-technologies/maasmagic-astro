@@ -18,8 +18,8 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    slug: "classic-mango",
-    name: "Classic Mango",
+    slug: "mango-achar",
+    name: "Mango achar",
     malayalam: "മാങ്ങാ",
     category: "veg",
     price: 100,
@@ -34,8 +34,8 @@ export const products: Product[] = [
     shelfLife: "3 months refrigerated",
   },
   {
-    slug: "spicy-garlic",
-    name: "Spicy Garlic",
+    slug: "garlic-achar",
+    name: "Garlic achar",
     malayalam: "വെളുത്തുള്ളി",
     category: "veg",
     price: 100,
@@ -50,8 +50,8 @@ export const products: Product[] = [
     shelfLife: "3 months refrigerated",
   },
   {
-    slug: "elephant-foot-yam",
-    name: "Elephant Foot Yam",
+    slug: "elephant-foot-yam-achar",
+    name: "Elephant Foot Yam achar",
     malayalam: "ചേന",
     category: "veg",
     price: 100,
@@ -66,8 +66,8 @@ export const products: Product[] = [
     shelfLife: "2 months refrigerated",
   },
   {
-    slug: "vibrant-beetroot",
-    name: "Vibrant Beetroot",
+    slug: "beetroot-achar",
+    name: "Beetroot achar",
     malayalam: "ബീറ്റ്റൂട്ട്",
     category: "veg",
     price: 100,
@@ -82,8 +82,8 @@ export const products: Product[] = [
     shelfLife: "2 months refrigerated",
   },
   {
-    slug: "royal-date-mix",
-    name: "Royal Date Mix",
+    slug: "dates-achar",
+    name: "Dates achar",
     malayalam: "ഇന്തപ്പഴം മിക്സ്‌",
     category: "veg",
     price: 100,
@@ -98,8 +98,8 @@ export const products: Product[] = [
     shelfLife: "2 months refrigerated",
   },
   {
-    slug: "tender-jackfruit",
-    name: "Tender Jackfruit",
+    slug: "jackfruit-achar",
+    name: "Jackfruit achar",
     malayalam: "ചക്ക",
     category: "veg",
     price: 100,
@@ -114,8 +114,8 @@ export const products: Product[] = [
     shelfLife: "2 months refrigerated",
   },
   {
-    slug: "malabar-beef",
-    name: "Malabar Beef",
+    slug: "beef-achar",
+    name: "Beef achar",
     malayalam: "ബീഫ്",
     category: "nonveg",
     price: 100,
@@ -130,8 +130,8 @@ export const products: Product[] = [
     shelfLife: "1.5 months refrigerated",
   },
   {
-    slug: "homestyle-chicken",
-    name: "Homestyle Chicken",
+    slug: "chicken-achar",
+    name: "Chicken achar",
     malayalam: "ചിക്കെൻ",
     category: "nonveg",
     price: 100,
@@ -146,8 +146,8 @@ export const products: Product[] = [
     shelfLife: "1.5 months refrigerated",
   },
   {
-    slug: "roasted-prawns",
-    name: "Roasted Prawns",
+    slug: "prawns-achar",
+    name: "Prawns achar",
     malayalam: "ചെമ്മീൻ",
     category: "nonveg",
     price: 100,
@@ -162,8 +162,8 @@ export const products: Product[] = [
     shelfLife: "1 month refrigerated",
   },
   {
-    slug: "netholi",
-    name: "Netholi",
+    slug: "netholi-achar",
+    name: "Netholi achar",
     malayalam: "നെത്തോലി",
     category: "nonveg",
     price: 100,
@@ -178,8 +178,8 @@ export const products: Product[] = [
     shelfLife: "1 month refrigerated",
   },
   {
-    slug: "kondattam",
-    name: "Kondattam",
+    slug: "kondattam-achar",
+    name: "Kondattam achar",
     malayalam: "കൊണ്ടാട്ടം",
     category: "nonveg",
     price: 100,
