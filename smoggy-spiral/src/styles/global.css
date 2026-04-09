@@ -124,6 +124,38 @@
 	}
 }
 
+@keyframes scrollRevealIn {
+	0% {
+		opacity: 0;
+		transform: translateY(26px) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.animate-in {
+	opacity: 0;
+	transform: translateY(26px) scale(0.985);
+	transition: opacity 0.45s ease, transform 0.45s ease;
+	will-change: opacity, transform;
+}
+
+.animate-in.is-visible {
+	animation: scrollRevealIn 0.55s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-in,
+	.animate-in.is-visible {
+		opacity: 1;
+		transform: none;
+		animation: none;
+		transition: none;
+	}
+}
+
 .order-spinner {
 	animation: orderSpinner 0.9s linear infinite;
 	border-top-color: var(--color-brand-500);

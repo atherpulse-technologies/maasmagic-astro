@@ -27,7 +27,7 @@ const qtyInputId = `qty-${product.slug}`;
   <CartDrawer />
 
   <main id="main-content" class="pb-20">
-    <section class="border-b border-stone-200 bg-white py-10">
+    <section class="animate-in border-b border-stone-200 bg-white py-10" data-animate>
       <div class="mx-auto w-[min(1160px,92%)]">
         <a href={`${import.meta.env.BASE_URL}#menu`} class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900">
           <i class="fa-solid fa-arrow-left"></i>
@@ -126,7 +126,7 @@ const qtyInputId = `qty-${product.slug}`;
       </div>
     </section>
 
-    <section class="py-16">
+    <section class="animate-in py-16" data-animate>
       <div class="mx-auto w-[min(1160px,92%)]">
         <h2 class="font-display text-3xl font-bold text-slate-900">Related products</h2>
         <div class="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
