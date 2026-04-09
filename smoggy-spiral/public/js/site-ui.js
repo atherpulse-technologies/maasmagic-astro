@@ -249,10 +249,21 @@ const initScrollAnimations = () => {
   if (!animated.length) return;
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+  const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+
+  // Mobile should prioritize immediate readability and interaction over delayed reveals.
+  if (prefersReducedMotion || isSmallScreen || !("IntersectionObserver" in window)) {
     animated.forEach((el) => el.classList.add("is-visible"));
     return;
   }
+
+  // Reveal sections that are already near the viewport to avoid blank gaps after hero.
+  animated.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 1.08) {
+      el.classList.add("is-visible");
+    }
+  });
 
   const observer = new IntersectionObserver(
     (entries, obs) => {
@@ -265,12 +276,16 @@ const initScrollAnimations = () => {
     },
     {
       root: null,
-      rootMargin: "0px 0px -8% 0px",
-      threshold: 0.14,
+      rootMargin: "0px 0px -4% 0px",
+      threshold: 0.05,
     }
   );
 
-  animated.forEach((el) => observer.observe(el));
+  animated.forEach((el) => {
+    if (!el.classList.contains("is-visible")) {
+      observer.observe(el);
+    }
+  });
 };
 
 const updateCartCount = (cart) => {

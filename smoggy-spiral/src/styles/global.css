@@ -127,7 +127,7 @@
 @keyframes scrollRevealIn {
 	0% {
 		opacity: 0;
-		transform: translateY(26px) scale(0.985);
+		transform: translateY(14px) scale(0.99);
 	}
 	100% {
 		opacity: 1;
@@ -137,13 +137,13 @@
 
 .animate-in {
 	opacity: 0;
-	transform: translateY(26px) scale(0.985);
-	transition: opacity 0.45s ease, transform 0.45s ease;
+	transform: translateY(14px) scale(0.99);
+	transition: opacity 0.28s ease, transform 0.28s ease;
 	will-change: opacity, transform;
 }
 
 .animate-in.is-visible {
-	animation: scrollRevealIn 0.55s ease forwards;
+	animation: scrollRevealIn 0.34s ease forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
