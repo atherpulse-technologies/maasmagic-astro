@@ -467,14 +467,9 @@ if (orderConfirmSuccessBtn instanceof HTMLElement) {
 
 if (orderConfirmFailureBtn instanceof HTMLElement) {
   orderConfirmFailureBtn.addEventListener("click", () => {
-    showOrderResult({
-      tone: "failure",
-      eyebrow: "Failure",
-      title: "Order not sent",
-      message: "Nothing was cleared. Try again from WhatsApp or copy the text and resend it.",
-      primaryLabel: "Try again",
-      secondaryLabel: "Back to cart",
-    });
+    hideOrderConfirm();
+    openCart();
+    showToast("Order not sent. Please retry from cart.", "error");
   });
 }
 
