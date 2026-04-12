@@ -1,6 +1,6 @@
 export const companyContact = {
-  phoneE164: "+919605471074",
-  phoneDisplay: "+91 96054 71074",
-  whatsappNumber: "919605471074",
+  phoneE164: "+917356967812",
+  phoneDisplay: "+91 73569 67812",
+  whatsappNumber: "917356967812",
   email: "orders@maasmagic.in",
 };
