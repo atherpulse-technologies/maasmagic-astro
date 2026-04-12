@@ -1,12 +1,16 @@
 export type ProductCategory = "veg" | "nonveg";
 
+export interface ProductVariant {
+  weight: string;
+  price: number;
+}
+
 export interface Product {
   slug: string;
   name: string;
   malayalam: string;
   category: ProductCategory;
-  price: number;
-  unit: string;
+  variants: ProductVariant[];
   tagline: string;
   shortDescription: string;
   longDescription: string;
@@ -22,8 +26,7 @@ export const products: Product[] = [
     name: "Mango achar",
     malayalam: "മാങ്ങാ",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [{ weight: "250g", price: 75 }],
     tagline: "Kerala classic with tangy heat",
     shortDescription: "Tangy mango pieces blended with authentic Kerala spice mix.",
     longDescription:
@@ -38,8 +41,10 @@ export const products: Product[] = [
     name: "Garlic achar",
     malayalam: "വെളുത്തുള്ളി",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Bold garlic with deep masala",
     shortDescription: "Garlic cloves slow-cooked in roasted masala for a bold flavor.",
     longDescription:
@@ -54,8 +59,7 @@ export const products: Product[] = [
     name: "Elephant Foot Yam achar",
     malayalam: "ചേന",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [{ weight: "500g", price: 100 }],
     tagline: "Rustic texture, festive flavor",
     shortDescription: "Traditional chena achar with earthy taste and robust seasoning.",
     longDescription:
@@ -63,15 +67,14 @@ export const products: Product[] = [
     highlights: ["Traditional recipe", "Earthy and hearty", "Handcrafted texture"],
     pairings: ["Rice and curry", "Puttu", "Porridge"],
     spiceLevel: "Medium",
-    shelfLife: "2 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "beetroot-achar",
     name: "Beetroot achar",
     malayalam: "ബീറ്റ്റൂട്ട്",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [{ weight: "250g", price: 80 }],
     tagline: "Sweet-spicy modern favorite",
     shortDescription: "A mildly sweet and spicy variant with striking color and taste.",
     longDescription:
@@ -79,15 +82,17 @@ export const products: Product[] = [
     highlights: ["Naturally vibrant", "Mild sweetness", "Family-friendly spice"],
     pairings: ["Ghee rice", "Appam", "Sandwiches"],
     spiceLevel: "Mild",
-    shelfLife: "2 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "dates-achar",
     name: "Dates achar",
     malayalam: "ഇന്തപ്പഴം മിക്സ്‌",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Sweet, tangy, aromatic",
     shortDescription: "Dates blended with aromatic spices for sweet and tangy notes.",
     longDescription:
@@ -95,15 +100,17 @@ export const products: Product[] = [
     highlights: ["Sweet-tangy profile", "Premium date blend", "Balanced spice"],
     pairings: ["Biryani", "Malabar parotta", "Neychoru"],
     spiceLevel: "Mild",
-    shelfLife: "2 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "jackfruit-achar",
     name: "Jackfruit achar",
     malayalam: "ചക്ക",
     category: "veg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Seasonal rustic specialty",
     shortDescription: "Raw jackfruit pickle with meaty texture and traditional masala.",
     longDescription:
@@ -111,15 +118,17 @@ export const products: Product[] = [
     highlights: ["Seasonal specialty", "Meaty texture", "Traditional preparation"],
     pairings: ["Rice meals", "Dosa", "Chapathi"],
     spiceLevel: "Medium",
-    shelfLife: "2 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "beef-achar",
     name: "Beef achar",
     malayalam: "ബീഫ്",
     category: "nonveg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Rich, intense Malabar profile",
     shortDescription: "Tender beef cuts in rich, slow-roasted Malabar spice blend.",
     longDescription:
@@ -127,15 +136,17 @@ export const products: Product[] = [
     highlights: ["Slow-cooked spice depth", "Tender cuts", "High flavor intensity"],
     pairings: ["Porotta", "Ghee rice", "Kappa"],
     spiceLevel: "Hot",
-    shelfLife: "1.5 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "chicken-achar",
     name: "Chicken achar",
     malayalam: "ചിക്കെൻ",
     category: "nonveg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Comforting, spicy, satisfying",
     shortDescription: "Spicy chicken achar that pairs perfectly with rice and porotta.",
     longDescription:
@@ -143,15 +154,17 @@ export const products: Product[] = [
     highlights: ["House signature blend", "Small batch freshness", "Consistent taste"],
     pairings: ["Rice", "Porotta", "Chapathi"],
     spiceLevel: "Medium",
-    shelfLife: "1.5 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "prawns-achar",
     name: "Prawns achar",
     malayalam: "ചെമ്മീൻ",
     category: "nonveg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Seafood-forward premium achar",
     shortDescription: "Premium prawns coated in roasted masala for deep seafood flavor.",
     longDescription:
@@ -159,15 +172,17 @@ export const products: Product[] = [
     highlights: ["Premium seafood", "Roasted masala", "Rich umami finish"],
     pairings: ["Steamed rice", "Appam", "Neychoru"],
     spiceLevel: "Medium",
-    shelfLife: "1 month refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "netholi-achar",
     name: "Netholi achar",
     malayalam: "നെത്തോലി",
     category: "nonveg",
-    price: 100,
-    unit: "100g",
+    variants: [
+      { weight: "250g", price: 100 },
+      { weight: "500g", price: 200 },
+    ],
     tagline: "Coastal anchovy classic",
     shortDescription: "Anchovy achar with bold spice profile and signature coastal taste.",
     longDescription:
@@ -175,15 +190,14 @@ export const products: Product[] = [
     highlights: ["Authentic coastal style", "Bold spice profile", "Handcrafted batches"],
     pairings: ["Kanji", "Rice and curry", "Tapioca"],
     spiceLevel: "Hot",
-    shelfLife: "1 month refrigerated",
+    shelfLife: "3 months refrigerated",
   },
   {
     slug: "kondattam-achar",
     name: "Kondattam achar",
     malayalam: "കൊണ്ടാട്ടം",
     category: "nonveg",
-    price: 100,
-    unit: "100g",
+    variants: [{ weight: "250g", price: 100 }],
     tagline: "Crunchy and tangy Kerala staple",
     shortDescription: "Sun-dried Kerala specialty finished with tangy and crunchy spice mix.",
     longDescription:
@@ -191,11 +205,22 @@ export const products: Product[] = [
     highlights: ["Traditional sun-dried method", "Crunch-forward texture", "Tangy finish"],
     pairings: ["Curd rice", "Plain rice", "Chapathi"],
     spiceLevel: "Medium",
-    shelfLife: "2 months refrigerated",
+    shelfLife: "3 months refrigerated",
   },
 ];
 
 export const vegProducts = products.filter((p) => p.category === "veg");
 export const nonVegProducts = products.filter((p) => p.category === "nonveg");
+export const getDefaultVariant = (product: Product) => product.variants[0];
+
+export const getProductImageBySlug = (slug: string) => {
+  const mappedImages: Record<string, string> = {
+    "mango-achar": "achar_images/mango.jpeg",
+    "garlic-achar": "achar_images/garlic.jpeg",
+    "kondattam-achar": "achar_images/kondattam.jpeg",
+  };
+
+  return mappedImages[slug] ?? "productmockup.jpg";
+};
 
 export const getProductBySlug = (slug: string) => products.find((p) => p.slug === slug);

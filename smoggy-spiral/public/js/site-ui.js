@@ -105,6 +105,7 @@ const persistCustomerFromInputs = () => {
 };
 
 const formatMoney = (value) => `₹${value}`;
+const getItemLabel = (item) => (item.unit ? `${item.name} - ${item.unit}` : item.name);
 
 const getCartTotal = (cart) => cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 const getCartCount = (cart) => cart.reduce((sum, item) => sum + item.qty, 0);
@@ -318,13 +319,13 @@ const renderCart = () => {
         <div class="flex items-start gap-3">
           <img src="${item.image}" alt="${item.name}" class="h-14 w-14 rounded-md border border-stone-200 object-contain p-1" />
           <div class="flex-1">
-            <p class="text-sm font-bold text-slate-900">${item.name}</p>
+            <p class="text-sm font-bold text-slate-900">${getItemLabel(item)}</p>
             <p class="text-xs text-slate-500">${formatMoney(item.price)} each</p>
             <div class="mt-2 flex items-center gap-2">
-              <button class="rounded border border-stone-300 px-2 py-1 text-xs" data-cart-action="decrease" data-slug="${item.slug}">-</button>
+              <button class="rounded border border-stone-300 px-2 py-1 text-xs" data-cart-action="decrease" data-key="${item.key}">-</button>
               <span class="min-w-6 text-center text-sm font-semibold">${item.qty}</span>
-              <button class="rounded border border-stone-300 px-2 py-1 text-xs" data-cart-action="increase" data-slug="${item.slug}">+</button>
-              <button class="ml-auto text-xs font-semibold text-rose-600" data-cart-action="remove" data-slug="${item.slug}">Remove</button>
+              <button class="rounded border border-stone-300 px-2 py-1 text-xs" data-cart-action="increase" data-key="${item.key}">+</button>
+              <button class="ml-auto text-xs font-semibold text-rose-600" data-cart-action="remove" data-key="${item.key}">Remove</button>
             </div>
           </div>
         </div>
@@ -336,7 +337,7 @@ const renderCart = () => {
 
 const addToCart = (product, qty = 1) => {
   const cart = getCart();
-  const existing = cart.find((item) => item.slug === product.slug);
+  const existing = cart.find((item) => item.key === product.key);
 
   if (existing) {
     existing.qty += qty;
@@ -346,12 +347,12 @@ const addToCart = (product, qty = 1) => {
 
   setCart(cart);
   renderCart();
-  showToast(`Added ${product.name} to cart`);
+  showToast(`Added ${getItemLabel(product)} to cart`);
 };
 
-const updateQty = (slug, delta) => {
+const updateQty = (key, delta) => {
   const cart = getCart();
-  const item = cart.find((entry) => entry.slug === slug);
+  const item = cart.find((entry) => entry.key === key);
   if (!item) return;
 
   item.qty += delta;
@@ -360,8 +361,8 @@ const updateQty = (slug, delta) => {
   renderCart();
 };
 
-const removeItem = (slug) => {
-  const cart = getCart().filter((item) => item.slug !== slug);
+const removeItem = (key) => {
+  const cart = getCart().filter((item) => item.key !== key);
   setCart(cart);
   renderCart();
 };
@@ -375,7 +376,7 @@ const buildWhatsappMessage = () => {
 
   cart.forEach((item, index) => {
     const lineTotal = item.price * item.qty;
-    message += `${index + 1}. ${item.name} - ${item.qty} x ₹${item.price} = ₹${lineTotal}%0A`;
+    message += `${index + 1}. ${getItemLabel(item)} - ${item.qty} x ₹${item.price} = ₹${lineTotal}%0A`;
   });
 
   message += `%0ATotal: ₹${getCartTotal(cart)}%0A%0AName: ${encodeURIComponent(customer.name || "")}%0AAddress: ${encodeURIComponent(customer.address || "")}%0APhone: ${encodeURIComponent(customer.phone || "")}%0A`;
@@ -391,7 +392,7 @@ const buildWhatsappPlainText = () => {
 
   cart.forEach((item, index) => {
     const lineTotal = item.price * item.qty;
-    lines.push(`${index + 1}. ${item.name} - ${item.qty} x ₹${item.price} = ₹${lineTotal}`);
+    lines.push(`${index + 1}. ${getItemLabel(item)} - ${item.qty} x ₹${item.price} = ₹${lineTotal}`);
   });
 
   lines.push("");
@@ -431,7 +432,24 @@ document.addEventListener("click", (e) => {
   if (addBtn instanceof HTMLElement) {
     const slug = addBtn.dataset.productSlug;
     const name = addBtn.dataset.productName;
-    const price = Number(addBtn.dataset.productPrice || 0);
+    const variantInputId = addBtn.dataset.variantInput;
+    let variantSelect = null;
+
+    if (variantInputId) {
+      const el = document.getElementById(variantInputId);
+      if (el instanceof HTMLSelectElement) {
+        variantSelect = el;
+      }
+    }
+
+    if (!(variantSelect instanceof HTMLSelectElement)) {
+      const card = addBtn.closest("[data-product-card]") || addBtn.closest("article") || addBtn.parentElement;
+      variantSelect = card ? card.querySelector("[data-variant-select]") : null;
+    }
+
+    const selectedVariant = variantSelect instanceof HTMLSelectElement ? variantSelect.value : "";
+    const [unit, selectedPrice] = selectedVariant.split("|");
+    const price = Number(selectedPrice || 0);
     const image = addBtn.dataset.productImage || "/productmockup.jpg";
     const qtyInputId = addBtn.dataset.qtyInput;
 
@@ -443,8 +461,9 @@ document.addEventListener("click", (e) => {
       }
     }
 
-    if (!slug || !name || !price) return;
-    addToCart({ slug, name, price, image }, qty);
+    if (!slug || !name || !price || !unit) return;
+    const key = `${slug}__${unit}`;
+    addToCart({ key, slug, name, unit, price, image }, qty);
     showAddedState(addBtn);
     return;
   }
@@ -452,12 +471,12 @@ document.addEventListener("click", (e) => {
   const actionBtn = target.closest("[data-cart-action]");
   if (actionBtn instanceof HTMLElement) {
     const action = actionBtn.dataset.cartAction;
-    const slug = actionBtn.dataset.slug;
-    if (!action || !slug) return;
+    const key = actionBtn.dataset.key;
+    if (!action || !key) return;
 
-    if (action === "increase") updateQty(slug, 1);
-    if (action === "decrease") updateQty(slug, -1);
-    if (action === "remove") removeItem(slug);
+    if (action === "increase") updateQty(key, 1);
+    if (action === "decrease") updateQty(key, -1);
+    if (action === "remove") removeItem(key);
   }
 });
 

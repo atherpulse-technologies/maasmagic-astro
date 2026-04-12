@@ -4,7 +4,7 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import CartDrawer from "../../components/CartDrawer.astro";
 import ProductCard from "../../components/ProductCard.astro";
-import { getProductBySlug, products } from "../../data/products";
+import { getProductImageBySlug, products } from "../../data/products";
 
 export async function getStaticPaths() {
   return products.map((product) => ({
@@ -16,6 +16,11 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 const related = products.filter((entry) => entry.category === product.category && entry.slug !== product.slug).slice(0, 3);
 const qtyInputId = `qty-${product.slug}`;
+const variantInputId = `variant-${product.slug}`;
+const minPrice = Math.min(...product.variants.map((variant) => variant.price));
+const maxPrice = Math.max(...product.variants.map((variant) => variant.price));
+const hasMultipleVariants = product.variants.length > 1;
+const productImage = `${import.meta.env.BASE_URL}${getProductImageBySlug(product.slug)}`;
 ---
 
 <BaseLayout
@@ -37,18 +42,7 @@ const qtyInputId = `qty-${product.slug}`;
         <div class="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <article class="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
             <div class="rounded-xl border border-stone-200 bg-stone-50 p-4">
-              <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt={`${product.name} product image`} class="h-[360px] w-full object-contain" />
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-3">
-              <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 1" class="h-20 w-full object-contain" />
-              </div>
-              <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 2" class="h-20 w-full object-contain" />
-              </div>
-              <div class="rounded-lg border border-stone-200 bg-white p-2">
-                <img src={`${import.meta.env.BASE_URL}productmockup.jpg`} alt="Thumb 3" class="h-20 w-full object-contain" />
-              </div>
+              <img src={productImage} alt={`${product.name} product image`} class="h-[360px] w-full object-contain" />
             </div>
           </article>
 
@@ -60,7 +54,7 @@ const qtyInputId = `qty-${product.slug}`;
 
             <div class="mt-5 flex items-center justify-between rounded-xl bg-brand-50 px-4 py-3">
               <p class="text-sm text-slate-600">Price</p>
-              <p class="text-xl font-bold text-slate-900">₹{product.price} <span class="text-sm font-semibold text-slate-500">| {product.unit}</span></p>
+              <p class="text-xl font-bold text-slate-900">{hasMultipleVariants ? `₹${minPrice} - ₹${maxPrice}` : `₹${minPrice}`}</p>
             </div>
 
             <div class="mt-4 grid gap-3 sm:grid-cols-3">
@@ -80,19 +74,25 @@ const qtyInputId = `qty-${product.slug}`;
 
             <p class="mt-5 text-slate-600">{product.longDescription}</p>
 
-            <div class="mt-6 flex items-center gap-3">
+            <div class="mt-6 flex flex-wrap items-center gap-3">
+              <label for={variantInputId} class="text-sm font-semibold text-slate-600">Weight</label>
+              <select id={variantInputId} class="min-w-40 rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold" data-variant-select>
+                {product.variants.map((variant) => (
+                  <option value={`${variant.weight}|${variant.price}`}>{variant.weight} - ₹{variant.price}</option>
+                ))}
+              </select>
               <label for={qtyInputId} class="text-sm font-semibold text-slate-600">Qty</label>
               <input id={qtyInputId} type="number" min="1" value="1" class="w-20 rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold" />
             </div>
 
-            <div class="mt-4 flex flex-wrap gap-3">
+            <div class="mt-4 flex flex-wrap gap-3" data-product-card>
               <button
                 class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white hover:bg-slate-800"
                 data-add-to-cart
                 data-product-slug={product.slug}
                 data-product-name={product.name}
-                data-product-price={product.price}
-                data-product-image={`${import.meta.env.BASE_URL}productmockup.jpg`}
+                data-product-image={productImage}
+                data-variant-input={variantInputId}
                 data-qty-input={qtyInputId}
               >
                 <i class="fa-solid fa-cart-plus"></i>
